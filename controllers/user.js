@@ -1,5 +1,3 @@
-// const { v4: uuidv4 } = require("uuid");
-const { randomUUID } = require("crypto");
 const User = require("../models/user");
 const { setUser } = require("../service/auth");
 
@@ -21,13 +19,9 @@ async function handleUserLogin(req, res) {
     return res.render("login", {
       error: "Invalid Username or Password",
     });
-
-  // const sessionId = uuidv4();
-  // const sessionId = randomUUID(); // ✅ Replaces uuidv4()
-  // setUser(sessionId, user);
+    
   const token = setUser(user);
-    res.cookie("uid", token);
-  // res.cookie("uid", sessionId);
+  res.cookie("token", token);
   return res.redirect("/");
 }
 
